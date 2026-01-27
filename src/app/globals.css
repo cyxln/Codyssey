@@ -24,3 +24,266 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.parallax-hero {
+  --progress: 0;
+  --hero-cream: #f6efdb;
+  --hero-shadow: rgba(10, 20, 12, 0.4);
+  min-height: 200vh;
+  position: relative;
+  background: radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 231, 170, 0.35),
+      rgba(22, 43, 27, 0.9) 55%
+    ),
+    #162b1b;
+}
+
+.parallax-hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.parallax-hero__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translate3d(
+      calc(var(--progress) * var(--x, 0px)),
+      calc(var(--progress) * var(--y, 0px)),
+      0
+    )
+    scale(calc(1 + var(--progress) * var(--scale, 0)));
+  opacity: calc(1 - var(--progress) * var(--fade, 0));
+  will-change: transform, opacity;
+}
+
+.parallax-hero__layer--bottom {
+  inset: auto 0 0 0;
+  height: 58vh;
+}
+
+.parallax-hero__layer--soft {
+  mix-blend-mode: screen;
+}
+
+.parallax-hero__layer--text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8vw;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.parallax-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.parallax-hero__text {
+  max-width: 46rem;
+  text-wrap: balance;
+}
+
+.parallax-hero__eyebrow {
+  font-family: var(--font-body), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: 0.72rem;
+  color: rgba(246, 239, 219, 0.7);
+  margin-bottom: 1.2rem;
+}
+
+.parallax-hero__title {
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-size: clamp(2.6rem, 6vw, 5.4rem);
+  line-height: 0.95;
+  font-weight: 600;
+  color: var(--hero-cream);
+  text-shadow: 0 14px 30px var(--hero-shadow);
+}
+
+.parallax-hero__subtitle {
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+  color: rgba(246, 239, 219, 0.86);
+  margin-top: 1.2rem;
+}
+
+.layer-sky {
+  z-index: 1;
+  --y: -18px;
+  --scale: 0.02;
+}
+
+.layer-medyoblue {
+  z-index: 2;
+  --y: -28px;
+  --fade: 0.2;
+}
+
+.layer-green {
+  z-index: 3;
+  --fade: 0.2;
+}
+
+.layer-side {
+  z-index: 4;
+  --x: 30px;
+  --fade: 0.25;
+}
+
+.layer-rays {
+  z-index: 5;
+  --y: -60px;
+  --scale: 0.18;
+  --fade: 0.8;
+}
+
+.layer-ray {
+  z-index: 6;
+  --y: -40px;
+  --scale: 0.12;
+  --fade: 0.7;
+}
+
+.layer-light {
+  z-index: 7;
+  --y: -24px;
+  --scale: 0.08;
+  --fade: 0.8;
+}
+
+.layer-village {
+  z-index: 10;
+  --y: 90px;
+  --scale: 0.32;
+  transform-origin: 50% 65%;
+}
+
+.layer-birds {
+  z-index: 11;
+  --x: 120px;
+  --y: -50px;
+  --fade: 0.7;
+}
+
+.layer-text {
+  z-index: 20;
+  --y: 120px;
+  --fade: 1;
+}
+
+.layer-soil {
+  z-index: 30;
+  --y: 220px;
+  --fade: 1;
+  transform-origin: 50% 100%;
+}
+
+.layer-plant {
+  z-index: 31;
+  --x: 120px;
+  --y: 200px;
+  --fade: 1;
+  transform-origin: 50% 100%;
+}
+
+.layer-foreground-left {
+  z-index: 40;
+  --x: -260px;
+  --y: 200px;
+  --fade: 1;
+  transform-origin: 0% 100%;
+}
+
+.layer-foreground-right {
+  z-index: 41;
+  --x: 260px;
+  --y: 200px;
+  --fade: 1;
+  transform-origin: 100% 100%;
+}
+
+.layer-rays .parallax-hero__image,
+.layer-ray .parallax-hero__image,
+.layer-light .parallax-hero__image,
+.layer-birds .parallax-hero__image,
+.layer-plant .parallax-hero__image,
+.layer-foreground-left .parallax-hero__image,
+.layer-foreground-right .parallax-hero__image {
+  object-fit: contain;
+}
+
+.layer-rays .parallax-hero__image,
+.layer-ray .parallax-hero__image {
+  object-position: center top;
+}
+
+.layer-light .parallax-hero__image {
+  object-position: center;
+}
+
+.layer-birds .parallax-hero__image {
+  object-position: right top;
+}
+
+.layer-soil .parallax-hero__image {
+  object-position: center bottom;
+}
+
+.layer-plant .parallax-hero__image {
+  object-position: center bottom;
+}
+
+.layer-foreground-left .parallax-hero__image {
+  object-position: left bottom;
+}
+
+.layer-foreground-right .parallax-hero__image {
+  object-position: right bottom;
+}
+
+@media (max-width: 900px) {
+  .parallax-hero {
+    min-height: 180vh;
+  }
+
+  .layer-village {
+    --scale: 0.24;
+    --y: 60px;
+  }
+
+  .layer-foreground-left {
+    --x: -160px;
+    --y: 150px;
+  }
+
+  .layer-foreground-right {
+    --x: 160px;
+    --y: 150px;
+  }
+
+  .layer-soil {
+    --y: 170px;
+  }
+
+  .layer-plant {
+    --x: 80px;
+    --y: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-hero__layer {
+    transform: none;
+    opacity: 1;
+  }
+}
