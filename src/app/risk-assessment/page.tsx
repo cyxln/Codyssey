@@ -31,6 +31,30 @@ export default function RiskAssessmentPage() {
   const [riskResult, setRiskResult] = useState<RiskAssessmentResult | null>(
     null
   );
+  const cardBaseClass =
+    "rounded-[26px] border border-black/25 bg-white p-5 shadow-[0_16px_35px_rgba(0,0,0,0.08)]";
+  const cardTitleClass =
+    "text-xs font-semibold uppercase tracking-[0.12em] text-[#5f5f5f]";
+
+  const getAdaptiveTextClass = (
+    content: string,
+    options?: { short?: number; long?: number }
+  ) => {
+    const shortLimit = options?.short ?? 140;
+    const longLimit = options?.long ?? 360;
+    const length = content.trim().length;
+
+    if (!length) {
+      return "text-sm leading-relaxed";
+    }
+    if (length <= shortLimit) {
+      return "text-base leading-relaxed";
+    }
+    if (length <= longLimit) {
+      return "text-sm leading-relaxed";
+    }
+    return "text-xs leading-relaxed";
+  };
 
   const showToast = (message: string, tone: ToastState["tone"] = "error") => {
     setToast({ message, tone });
@@ -235,56 +259,83 @@ export default function RiskAssessmentPage() {
             </>
           )}
           {riskResult ? (
-            <div className="mt-4 w-full rounded-[28px] border border-black/10 bg-white p-6 text-left shadow-[0_18px_40px_rgba(0,0,0,0.12)]">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-[#f1f4ff] px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[#2b3a83]">
-                  Risk score {riskResult.score}
-                </span>
-                <span className="rounded-full bg-[#fdf3e7] px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[#9b4b16]">
-                  {riskResult.score_description.replace("_", " ")}
-                </span>
-                <span className="rounded-full bg-[#e9f7f0] px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[#1d6b48]">
-                  {riskResult.is_area_allowed_to_visit.replace("_", " ")}
-                </span>
+            <div className="mt-6 w-full text-left">
+              <div className="grid gap-4 md:grid-cols-[minmax(190px,240px)_minmax(0,1fr)_minmax(0,1fr)]">
+                <div className="flex flex-col gap-4">
+                  <div className={`${cardBaseClass} bg-[#e2eefb]`}>
+                    <p className={cardTitleClass}>Risk score</p>
+                    <p className="mt-3 text-[clamp(2.2rem,3.4vw,3.2rem)] font-semibold text-[#0f1c2b]">
+                      {riskResult.score}
+                    </p>
+                  </div>
+                  <div className={`${cardBaseClass} bg-[#f7cdb3]`}>
+                    <p className={cardTitleClass}>Risk level</p>
+                    <p className="mt-3 text-[clamp(1.4rem,2.4vw,2rem)] font-semibold text-[#3c2418]">
+                      {riskResult.score_description.replace("_", " ")}
+                    </p>
+                  </div>
+                  <div className={`${cardBaseClass} bg-[#c9f4cd]`}>
+                    <p className={cardTitleClass}>Route guidance</p>
+                    <p className="mt-3 text-[clamp(1.1rem,2vw,1.45rem)] font-semibold text-[#1f3b27]">
+                      {riskResult.is_area_allowed_to_visit.replace("_", " ")}
+                    </p>
+                  </div>
+                </div>
+                <div className={cardBaseClass}>
+                  <p className={cardTitleClass}>Location overview</p>
+                  <p
+                    className={`mt-3 text-[#1f1f1f] ${getAdaptiveTextClass(
+                      riskResult.location_overview,
+                      { short: 120, long: 360 }
+                    )}`}
+                  >
+                    {riskResult.location_overview}
+                  </p>
+                </div>
+                <div className={cardBaseClass}>
+                  <p className={cardTitleClass}>Vulnerabilities</p>
+                  <p
+                    className={`mt-3 text-[#1f1f1f] ${getAdaptiveTextClass(
+                      riskResult.vulnerabilities,
+                      { short: 140, long: 420 }
+                    )}`}
+                  >
+                    {riskResult.vulnerabilities}
+                  </p>
+                </div>
               </div>
-              <div className="mt-4 space-y-3 text-sm text-[#2a2a2a]">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-[#6b6b6b]">
-                    Location overview
-                  </p>
-                  <p className="mt-1">{riskResult.location_overview}</p>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-[#6b6b6b]">
-                    Vulnerabilities
-                  </p>
-                  <p className="mt-1">{riskResult.vulnerabilities}</p>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-[#6b6b6b]">
-                    Precautionary steps
-                  </p>
-                  <ul className="mt-2 list-disc space-y-1 pl-5">
+              <div className="mt-4 grid gap-4">
+                <div className={cardBaseClass}>
+                  <p className={cardTitleClass}>Precautionary / Next steps</p>
+                  <ul
+                    className={`mt-3 list-disc space-y-2 pl-5 text-[#1f1f1f] ${getAdaptiveTextClass(
+                      riskResult.precautionary_steps.join(" "),
+                      { short: 200, long: 520 }
+                    )}`}
+                  >
                     {riskResult.precautionary_steps.map((step, index) => (
                       <li key={`${step}-${index}`}>{step}</li>
                     ))}
                   </ul>
                 </div>
+                <div className={cardBaseClass}>
+                  <p className={cardTitleClass}>Sources</p>
+                  <ul
+                    className={`mt-3 list-disc space-y-2 pl-5 text-[#1f1f1f] ${getAdaptiveTextClass(
+                      (riskResult.sources ?? []).join(" "),
+                      { short: 160, long: 460 }
+                    )}`}
+                  >
+                    {(riskResult.sources ?? []).length > 0 ? (
+                      riskResult.sources?.map((source, index) => (
+                        <li key={`${source}-${index}`}>{source}</li>
+                      ))
+                    ) : (
+                      <li>No sources provided.</li>
+                    )}
+                  </ul>
+                </div>
               </div>
-              <details className="mt-4 rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3">
-                <summary className="cursor-pointer text-sm font-semibold text-[#2b2b2b]">
-                  View sources
-                </summary>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-[#3a3a3a]">
-                  {(riskResult.sources ?? []).length > 0 ? (
-                    riskResult.sources?.map((source, index) => (
-                      <li key={`${source}-${index}`}>{source}</li>
-                    ))
-                  ) : (
-                    <li>No sources provided.</li>
-                  )}
-                </ul>
-              </details>
             </div>
           ) : null}
         </section>
