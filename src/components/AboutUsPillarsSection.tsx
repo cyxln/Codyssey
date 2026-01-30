@@ -85,6 +85,39 @@ const pillarCards: PillarCard[] = [
   },
 ];
 
+const journeyMilestones = [
+  {
+    year: "1996",
+    title: "The Humble Beginning",
+    body:
+      "Inspired by global movements and leaders, VMSDFI began forming a national federation.",
+  },
+  {
+    year: "1998",
+    title: "Formal Consolidation",
+    body:
+      "Savings groups merged into a national movement, marking the first national assembly in Payatas, Quezon City.",
+  },
+  {
+    year: "2000",
+    title: "Institutional Recognition",
+    body:
+      "The federation signed a landmark MOU with the government and established a joint development fund to improve land and housing access.",
+  },
+  {
+    year: "2001",
+    title: "Rapid Scaling",
+    body:
+      "Membership reached a major milestone, expanding to over 20,000 families across multiple Philippine cities.",
+  },
+  {
+    year: "2003",
+    title: "Evolution and Expansion",
+    body:
+      "The movement expanded into disaster relief and emergency response, formalizing long-term partnerships under the Philippine Alliance.",
+  },
+];
+
 export default function AboutUsPillarsSection() {
   return (
     <>
@@ -232,6 +265,56 @@ export default function AboutUsPillarsSection() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f6efe4] px-6 pb-28 pt-6 text-[#1e1e1e]">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center text-center">
+          <h2 className="font-playfair text-[clamp(2.4rem,5.6vw,4rem)] font-bold leading-tight text-[#1e1e1e] drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+            Journey and Milestones
+          </h2>
+        </div>
+
+        <div className="relative mx-auto mt-12 w-full max-w-6xl">
+          <div className="pointer-events-none absolute left-6 top-0 hidden h-full w-[3px] bg-[#1e1e1e] md:left-1/2 md:block md:-translate-x-1/2" />
+          <div className="pointer-events-none absolute left-6 top-0 h-full w-[3px] bg-[#1e1e1e] md:hidden" />
+
+          <ul className="flex flex-col gap-12 md:gap-16">
+            {journeyMilestones.map((milestone, index) => {
+              const isLeft = index % 2 === 0;
+              return (
+                <li
+                  key={`${milestone.year}-${milestone.title}`}
+                  className="relative grid grid-cols-[auto_1fr] items-start gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center"
+                >
+                  <div className="relative z-10 flex items-start justify-center md:col-start-2 md:row-start-1">
+                    <img
+                      src="/figma_assets/about_us/journey/timeline-dot.svg"
+                      alt=""
+                      className="h-7 w-7 md:h-8 md:w-8"
+                    />
+                  </div>
+                  <div
+                    className={`rounded-[14px] bg-white px-6 py-6 shadow-[0_10px_20px_rgba(0,0,0,0.08)] md:max-w-[28rem] ${
+                      isLeft
+                        ? "md:col-start-1 md:justify-self-end md:text-right"
+                        : "md:col-start-3 md:justify-self-start md:text-left"
+                    }`}
+                  >
+                    <p className="text-[clamp(1.6rem,3.5vw,2.2rem)] font-extrabold text-[#0f3a12]">
+                      {milestone.year}
+                    </p>
+                    <h3 className="mt-1 text-[clamp(1.35rem,2.8vw,1.8rem)] font-extrabold text-[#1e1e1e]">
+                      {milestone.title}
+                    </h3>
+                    <p className="mt-2 text-[clamp(0.98rem,2.2vw,1.2rem)] leading-relaxed text-[#0f3a12]">
+                      {milestone.body}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
     </>
