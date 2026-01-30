@@ -108,6 +108,27 @@ body {
     linear-gradient(180deg, rgba(10, 18, 12, 0.25) 0%, rgba(10, 18, 12, 0.15) 40%, rgba(10, 18, 12, 0.35) 70%, rgba(10, 18, 12, 0.5) 100%);
 }
 
+.get-involved-tile {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: getInvolvedTileIn 800ms ease-in forwards;
+}
+
+.get-involved-tile:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.get-involved-tile:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+@keyframes getInvolvedTileIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .pillars-grid {
   display: flex;
   min-height: 100vh;
@@ -116,6 +137,16 @@ body {
 @media (orientation: portrait) {
   .pillars-grid {
     flex-direction: column;
+  }
+  .get-involved-tiles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .get-involved-tile {
+    width: min(410px, 90vw);
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -219,6 +250,11 @@ body {
   }
   .about-card--top {
     transform: translate(var(--about-top-x), var(--about-top-y));
+  }
+  .get-involved-tile {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   .scroll-reveal {
     opacity: 1;

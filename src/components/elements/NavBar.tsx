@@ -7,7 +7,7 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
   { label: "Our Stories", href: "#" },
-  { label: "Get Involved", href: "#" },
+  { label: "Get Involved", href: "/get-involved" },
 ];
 
 const isActivePath = (href: string, pathname: string) => {
