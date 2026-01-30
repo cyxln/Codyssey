@@ -197,9 +197,9 @@ export default function RiskAssessmentPage() {
           {toast.message}
         </div>
       ) : null}
-      <div className="mx-auto flex min-h-screen max-w-5xl flex-col items-center gap-10 px-6 py-10">
+      <div className="mx-auto flex min-h-screen max-w-5xl flex-col items-center px-6 py-10">
         <NavBar />
-        <section className="flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-8 text-center">
+        <section className="flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-8 py-10 text-center">
           <h1 className="text-balance text-[clamp(1.8rem,3.1vw,3rem)] font-semibold text-[#1a1a1a] font-playfair">
             Type your location to see if its safe and take action
           </h1>
@@ -288,6 +288,17 @@ export default function RiskAssessmentPage() {
             </div>
           ) : null}
         </section>
+        <footer className="mt-auto w-full max-w-3xl text-center text-[0.7rem] text-[#6b6b6b]">
+          <p>
+            It uses Exa Search API and GPT-5 Mini to synthesize information,
+            please double check and should be used for reference only.
+          </p>
+          <p className="mt-2">
+            &quot;Use my current location&quot; uses your network&#39;s
+            approximate location and OpenStreetMaps API, this may affect how
+            GPT shapes it&#39;s responses.
+          </p>
+        </footer>
       </div>
     </main>
   );
