@@ -5,6 +5,8 @@ import OurStrategySection from "../components/OurStrategySection";
 import OurImpactSection from "../components/OurImpactSection";
 import JoinNowSection from "../components/JoinNowSection";
 import StatsSection from "../components/StatsSection";
+import SocialProofSection from "../components/SocialProofSection";
+import FooterSection from "../components/FooterSection";
 import ScrollReveal from "../components/elements/ScrollReveal";
 
 export default function Home() {
@@ -29,6 +31,8 @@ export default function Home() {
         <JoinNowSection />
       </ScrollReveal>
       <StatsSection />
+      <SocialProofSection />
+      <FooterSection />
     </main>
   );
 }
