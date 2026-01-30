@@ -31,7 +31,7 @@ export default function AboutUsSection() {
           </p>
         </div>
 
-        <div className="relative flex w-full max-w-[520px] items-start justify-center lg:ml-auto lg:justify-end lg:translate-x-6">
+        <div className="relative mx-auto flex w-full max-w-[520px] items-start justify-center lg:mx-0 lg:ml-auto lg:justify-end lg:translate-x-6">
           <CascadingImageAbout
             topSrc="/figma_assets/about_us/about-top.png"
             topAlt="Community organizers speaking with residents"
