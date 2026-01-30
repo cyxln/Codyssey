@@ -18,7 +18,7 @@ const impactItems = [
 
 export default function OurImpactSection() {
   return (
-    <section className="bg-[#f6efe4] px-6 py-20 text-[#1e1e1e]">
+    <section className="flex min-h-screen flex-col justify-center bg-[#f6efe4] px-6 py-20 text-[#1e1e1e]">
       <div className="mx-auto mb-12 flex w-full max-w-6xl flex-col items-start gap-6 text-[#0f3a12]">
         <div className="flex items-center gap-6 text-center text-[#0f3a12]">
           <span className="h-[6px] w-28 rounded-full bg-gradient-to-b from-[#8dd55a] to-[#0f3a12] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]" />
