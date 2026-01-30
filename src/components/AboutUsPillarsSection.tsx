@@ -110,7 +110,7 @@ export default function AboutUsPillarsSection() {
                   {pillar.title}
                 </h3>
                 <div className="mt-3 flex max-w-[22rem] gap-3">
-                  <span className="mt-1 h-16 w-1.5 rounded-[2px] bg-[#f8ff94]" />
+                  <span className="shrink-0 self-stretch w-2.5 rounded-[2px] bg-[#f8ff94]" />
                   <p className="text-[clamp(0.78rem,1.2vw,0.98rem)] leading-relaxed text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]">
                     <span className="font-bold text-white">{pillar.highlight} </span>
                     {pillar.body}
