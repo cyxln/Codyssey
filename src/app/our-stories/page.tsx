@@ -33,6 +33,7 @@ const stories = [
       "In the \"City of Love,\" Iloilo, the project collaborates with the Homeless People's Federation of the Philippines - Iloilo (HPFPI). Local artisans are trained to create unique designer products, with the initial collection featuring designs by renowned social entrepreneur and designer Zarah Juan.",
     image: "/figma_assets/our_stories/a6f68e47355a1bb6889751b9214408afb8fdf308.png",
     imageAlt: "Local artisans presenting their products",
+    href: "/our-stories/a-platform-for-local-artisans",
   },
 ];
 
