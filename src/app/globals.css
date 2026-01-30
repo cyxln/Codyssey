@@ -29,6 +29,10 @@ body {
   font-family: var(--font-inter), "Inter", "Segoe UI", sans-serif;
 }
 
+.font-playfair {
+  font-family: var(--font-playfair), "Playfair Display", "Times New Roman", serif;
+}
+
 .glass-pill {
   position: relative;
   border-radius: 999px;
