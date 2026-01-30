@@ -25,6 +25,7 @@ const stories = [
       "The Homeless People's Federation of the Philippines, Inc. (HPFPI) was instrumental in redefining Iloilo City's approach to urban resilience by transitioning from traditional top-down resettlement to a community-led development model.",
     image: "/figma_assets/our_stories/12c6a7b13447d773ea8f83ac8042582b17fa2cee.png",
     imageAlt: "Community members gathered in Iloilo City",
+    href: "/our-stories/empowering-the-urban-poor",
   },
   {
     title: "A Platform for Local Artisans",
