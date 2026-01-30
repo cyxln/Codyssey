@@ -1,3 +1,5 @@
+import JoinUsBtn from "./elements/JoinUsBtn";
+
 export default function JoinNowSection() {
   return (
     <section className="flex min-h-screen flex-col items-center justify-center bg-[#f6efe4] px-6 py-20 text-center text-[#1e1e1e]">
@@ -10,27 +12,7 @@ export default function JoinNowSection() {
           Join the movement for community-led development. Whether you're a community leader,
           policymaker, NGO partner, or concerned citizen—there's a role for you.
         </p>
-        <button className="glass-pill glass-pill--cta mt-4 flex items-center gap-3 px-10 py-3">
-          <span className="text-[clamp(1rem,2.2vw,1.4rem)] font-semibold text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
-            Get Involved
-          </span>
-          <svg
-            aria-hidden="true"
-            width="26"
-            height="26"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="shrink-0"
-          >
-            <path
-              d="M5 12h13m0 0l-5-5m5 5l-5 5"
-              stroke="#1f6b1c"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <JoinUsBtn buttonText="Get Involved" />
       </div>
     </section>
   );
