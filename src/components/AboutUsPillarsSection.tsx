@@ -158,6 +158,82 @@ export default function AboutUsPillarsSection() {
           ))}
         </div>
       </section>
+
+      <section className="bg-[#f6efe4] px-6 pb-24 pt-8 text-[#1e1e1e]">
+        <div className="mx-auto flex min-h-[70vh] w-full max-w-[920px] flex-col items-center justify-center">
+          <h2 className="font-playfair text-[clamp(2.6rem,6vw,4.4rem)] font-semibold leading-tight text-[#1e1e1e] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+            Core Values
+          </h2>
+
+          <div className="mt-12 grid w-full grid-cols-1 gap-y-14 gap-x-10 text-center sm:grid-cols-2 md:grid-cols-6">
+            <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-span-2">
+              <div className="flex h-[96px] w-[96px] items-center justify-center rounded-full">
+                <img
+                  src="/figma_assets/about_us/pillars/core_values/heart.png"
+                  alt="Heart icon"
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
+              <p className="text-[clamp(1rem,2.2vw,1.25rem)] font-semibold leading-snug text-[#1e1e1e] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                <span className="text-[#8dd55a]">H</span>eartfelt service with accountability,
+                transparency, and responsibility.
+              </p>
+            </div>
+
+            <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-span-2">
+              <div className="flex h-[96px] w-[96px] items-center justify-center rounded-full">
+                <img
+                  src="/figma_assets/about_us/pillars/core_values/people-ring.png"
+                  alt="People icon"
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
+              <p className="text-[clamp(1rem,2.2vw,1.25rem)] font-semibold leading-snug text-[#1e1e1e] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                <span className="text-[#8dd55a]">P</span>eople-oriented and empathetic
+              </p>
+            </div>
+
+            <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-span-2">
+              <div className="flex h-[96px] w-[96px] items-center justify-center rounded-full">
+                <img
+                  src="/figma_assets/about_us/pillars/core_values/bamboo.png"
+                  alt="Bamboo icon"
+                  className="h-20 w-20 object-contain"
+                />
+              </div>
+              <p className="text-[clamp(1rem,2.2vw,1.25rem)] font-semibold leading-snug text-[#1e1e1e] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                <span className="text-[#8dd55a]">F</span>lexibility
+              </p>
+            </div>
+
+            <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-start-2 md:col-span-2">
+              <div className="flex h-[104px] w-[104px] items-center justify-center">
+                <img
+                  src="/figma_assets/about_us/pillars/core_values/handshake.png"
+                  alt="Handshake icon"
+                  className="h-[88px] w-[88px] object-contain"
+                />
+              </div>
+              <p className="text-[clamp(1rem,2.2vw,1.25rem)] font-semibold leading-snug text-[#1e1e1e] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                <span className="text-[#8dd55a]">P</span>artnership
+              </p>
+            </div>
+
+            <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-start-4 md:col-span-2">
+              <div className="flex h-[104px] w-[104px] items-center justify-center">
+                <img
+                  src="/figma_assets/about_us/pillars/core_values/shield.png"
+                  alt="Shield icon"
+                  className="h-[88px] w-[88px] object-contain"
+                />
+              </div>
+              <p className="text-[clamp(1rem,2.2vw,1.25rem)] font-semibold leading-snug text-[#1e1e1e] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+                <span className="text-[#8dd55a]">I</span>ntegrity and Initiative
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
