@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# We ignore these files for now due to large volume of images
+/_figma_assets/

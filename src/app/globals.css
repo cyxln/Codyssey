@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0d120c;
+  --foreground: #f8fbf4;
+  --glass-bg: rgba(170, 201, 129, 0.35);
+  --glass-border: rgba(207, 230, 179, 0.55);
+  --glass-shadow: rgba(45, 60, 26, 0.25);
+  --glass-text: rgba(26, 37, 20, 0.78);
+  --glass-glow: rgba(197, 226, 166, 0.55);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d120c;
+    --foreground: #f8fbf4;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), "Inter", "Segoe UI", sans-serif;
+}
+
+.glass-pill {
+  position: relative;
+  border-radius: 999px;
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  box-shadow:
+    inset 0 0 18px rgba(255, 255, 255, 0.22),
+    0 12px 35px var(--glass-shadow),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.glass-pill::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.glass-pill--nav {
+  padding: 10px 18px;
+  color: var(--glass-text);
+}
+
+.glass-pill--cta {
+  color: var(--glass-text);
+  box-shadow:
+    inset 0 0 18px rgba(255, 255, 255, 0.22),
+    0 18px 45px rgba(14, 26, 10, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.glass-pill--cta:hover {
+  box-shadow:
+    inset 0 0 18px rgba(255, 255, 255, 0.3),
+    0 18px 50px rgba(14, 26, 10, 0.4),
+    0 0 12px var(--glass-glow);
+}
+
+.hero-title {
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.hero-subtitle {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
