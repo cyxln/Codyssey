@@ -1,11 +1,4 @@
-const navItems = [
-  "Home",
-  "About Us",
-  "The Team",
-  "Our Stories",
-  "Savings",
-  "Get Involved",
-];
+import NavBar from "./elements/NavBar";
 
 export default function HeroSection() {
   return (
@@ -36,23 +29,7 @@ export default function HeroSection() {
 
       <div className="relative z-10 flex min-h-screen flex-col items-center px-6 pb-12 pt-8">
         <div className="flex w-full justify-center">
-          <div className="glass-pill glass-pill--nav">
-            <nav className="flex flex-wrap items-center justify-center gap-3 text-[clamp(0.9rem,1.4vw,1.15rem)] font-semibold text-[#4b4b4b]">
-              {navItems.map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className={`rounded-full px-4 py-2 transition ${
-                    item === "Home"
-                      ? "font-black text-[#2f2f2f]"
-                      : "hover:bg-white/40 hover:text-[#2c2c2c]"
-                  }`}
-                >
-                  {item}
-                </a>
-              ))}
-            </nav>
-          </div>
+          <NavBar />
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center text-center">
