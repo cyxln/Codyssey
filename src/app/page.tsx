@@ -4,6 +4,7 @@ import AboutUsSection from "../components/AboutUsSection";
 import OurStrategySection from "../components/OurStrategySection";
 import OurImpactSection from "../components/OurImpactSection";
 import JoinNowSection from "../components/JoinNowSection";
+import StatsSection from "../components/StatsSection";
 import ScrollReveal from "../components/elements/ScrollReveal";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       <ScrollReveal>
         <JoinNowSection />
       </ScrollReveal>
+      <StatsSection />
     </main>
   );
 }
