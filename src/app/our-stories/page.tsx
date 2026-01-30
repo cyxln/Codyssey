@@ -16,6 +16,7 @@ const stories = [
       "The Environmental Science for Social Change (ESSC) has formally integrated into a six-member research consortium to implement the project titled \"Building Resilience in the Context of Rapid Urbanization: A View for Informal Communities\" (RURBANISE).",
     image: "/figma_assets/our_stories/418e73abd50b3e988f7ba779e65704dad76846a8.png",
     imageAlt: "RURBANISE event banner",
+    href: "/our-stories/essc-joins-rurbanise",
   },
   {
     title:
