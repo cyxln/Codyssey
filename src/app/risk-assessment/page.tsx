@@ -259,7 +259,7 @@ export default function RiskAssessmentPage() {
             </>
           )}
           {riskResult ? (
-            <div className="mt-6 w-full text-left">
+            <div className="risk-result mt-6 w-full text-left">
               <div className="grid gap-4 md:grid-cols-[minmax(190px,240px)_minmax(0,1fr)_minmax(0,1fr)]">
                 <div className="flex flex-col gap-4">
                   <div className={`${cardBaseClass} bg-[#e2eefb]`}>
@@ -351,6 +351,22 @@ export default function RiskAssessmentPage() {
           </p>
         </footer>
       </div>
+      <style jsx>{`
+        .risk-result {
+          animation: riskFadeIn 420ms ease-in;
+        }
+
+        @keyframes riskFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </main>
   );
 }
