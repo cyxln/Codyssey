@@ -8,6 +8,7 @@ const stories = [
       "On June 13, 2025, youth leaders from various regions of the Philippines gathered at Antay's Inland Resort in Santa Barbara, Iloilo, participate in the HPFPI National Youth Summit. This assembly was organized by HPFPI Youth Iloilo in formal partnership with several organizations, including PACSII, SDI, TAMPEI, HPFPI, and DIInsider.",
     image: "/figma_assets/our_stories/3d88a60b22cd22980d849cfebfb77659b85e8d8c.png",
     imageAlt: "HPFPI National Youth Summit group photo",
+    href: "/our-stories/national-youth-summit",
   },
   {
     title: "ESSC Joins RURBANISE on Urban Vulnerability",
@@ -76,7 +77,7 @@ export default function OurStoriesPage() {
                       {story.description}
                     </p>
                     <a
-                      href="#"
+                      href={story.href ?? "#"}
                       className="text-sm font-bold italic text-[#122620]"
                     >
                       &gt;&gt; Read Full Story
