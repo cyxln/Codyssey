@@ -49,12 +49,19 @@ export const handler = async (event: {
     const { userLocation, detectedCoordinates } = parsedBody;
 
     let resolvedLocation: string | null = userLocation ?? null;
+    const hasCoordinates =
+      typeof detectedCoordinates?.latitude === "number" &&
+      typeof detectedCoordinates?.longitude === "number";
 
-    if (detectedCoordinates?.latitude && detectedCoordinates?.longitude) {
+    if (hasCoordinates) {
       resolvedLocation = await getLocationNameFromCoordinates(
         detectedCoordinates.latitude,
         detectedCoordinates.longitude
       );
+    }
+
+    if (!resolvedLocation && hasCoordinates) {
+      resolvedLocation = `Coordinates near ${detectedCoordinates.latitude}, ${detectedCoordinates.longitude} in the Philippines`;
     }
 
     if (!resolvedLocation) {
