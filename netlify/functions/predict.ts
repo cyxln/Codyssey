@@ -3,18 +3,50 @@ import {
   OPENAI_STRUCTURED_RESPONSE_SCHEMA,
   WEB_SEARCH_QUERYGEN_SCHEMA,
   PROMPT_REFUSAL_SCHEMA,
-} from "@/lib/system_prompt";
-import { generateResponse } from "@/lib/openai";
-import { getLocationNameFromCoordinates } from "@/lib/openstreetmap_determine_coordinates";
-import { exaSearch } from "@/lib/exa_search";
+} from "../../src/lib/system_prompt";
+import { generateResponse } from "../../src/lib/openai";
+import { getLocationNameFromCoordinates } from "../../src/lib/openstreetmap_determine_coordinates";
+import { exaSearch } from "../../src/lib/exa_search";
 
 type RefusalResult = {
   throw_error: boolean;
 };
 
-export async function POST(request: Request) {
+type PredictBody = {
+  userLocation?: string;
+  detectedCoordinates?: {
+    latitude?: number;
+    longitude?: number;
+  };
+};
+
+const jsonResponse = (statusCode: number, payload: unknown) => ({
+  statusCode,
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+});
+
+export const handler = async (event: {
+  body?: string | null;
+  isBase64Encoded?: boolean;
+}) => {
   try {
-    const { userLocation, detectedCoordinates } = await request.json();
+    const rawBody = event.body
+      ? event.isBase64Encoded
+        ? Buffer.from(event.body, "base64").toString("utf-8")
+        : event.body
+      : "";
+
+    let parsedBody: PredictBody = {};
+    if (rawBody) {
+      try {
+        parsedBody = JSON.parse(rawBody) as PredictBody;
+      } catch {
+        return jsonResponse(400, { error: "Invalid JSON body." });
+      }
+    }
+
+    const { userLocation, detectedCoordinates } = parsedBody;
 
     let resolvedLocation: string | null = userLocation ?? null;
 
@@ -26,10 +58,7 @@ export async function POST(request: Request) {
     }
 
     if (!resolvedLocation) {
-      return Response.json(
-        { error: "Missing location input." },
-        { status: 400 }
-      );
+      return jsonResponse(400, { error: "Missing location input." });
     }
 
     if (userLocation) {
@@ -50,10 +79,7 @@ export async function POST(request: Request) {
       }
 
       if (throwError) {
-        return Response.json(
-          { error: "Invalid or off-topic location query." },
-          { status: 400 }
-        );
+        return jsonResponse(400, { error: "Invalid or off-topic location query." });
       }
     }
 
@@ -145,12 +171,12 @@ export async function POST(request: Request) {
       OPENAI_STRUCTURED_RESPONSE_SCHEMA
     );
 
-    return Response.json({
+    return jsonResponse(200, {
       constructedPrompt: constructedPromptString,
       synthesizedResponse,
     });
   } catch (error) {
     console.error("Failed to process predict request:", error);
-    return Response.json({ error: "Something went wrong." }, { status: 500 });
+    return jsonResponse(500, { error: "Something went wrong." });
   }
-}
+};

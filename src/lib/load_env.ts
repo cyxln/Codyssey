@@ -1,4 +1,6 @@
-import "server-only";
+import("server-only").catch(() => {
+  // Ignore when running outside Next.js (e.g., Netlify Functions).
+});
 import fs from "node:fs";
 import path from "node:path";
 import dotenv from "dotenv";
