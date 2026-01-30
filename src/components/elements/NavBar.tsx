@@ -8,6 +8,7 @@ const navItems = [
   { label: "About Us", href: "/about-us" },
   { label: "Our Stories", href: "#" },
   { label: "Get Involved", href: "/get-involved" },
+  { label: "Is my area at risk?", href: "/risk-assessment" },
 ];
 
 const isActivePath = (href: string, pathname: string) => {
