@@ -26,6 +26,8 @@ export default function HeroSection() {
         />
       </div>
 
+      <div className="pointer-events-none absolute inset-0 z-[2] hero-contrast" />
+
       <img
         src="/figma_assets/hero-plant.png"
         alt=""
@@ -56,11 +58,11 @@ export default function HeroSection() {
         <div className="flex flex-1 flex-col items-center justify-center text-center">
           <h1 className="hero-title max-w-4xl text-[clamp(2.3rem,6vw,4.6rem)] font-black leading-[1.05] tracking-tight">
             <span className="text-white">Growing </span>
-            <span className="bg-gradient-to-r from-[#071d39] via-[#0b5a33] to-[#189547] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#071d39] via-[#0b5a33] to-[#189547] bg-clip-text text-transparent italic">
               Resilience
             </span>
             <span className="text-white"> Communities</span>
-            <span className="block bg-gradient-to-r from-[#bff28d] via-[#8dd55a] to-[#4e8a2b] bg-clip-text text-transparent">
+            <span className="block text-white">
               Together
             </span>
           </h1>
@@ -71,7 +73,7 @@ export default function HeroSection() {
         </div>
 
         <button className="glass-pill glass-pill--cta mt-6 flex items-center gap-3 px-8 py-3">
-          <span className="bg-gradient-to-r from-[#8dd55a] via-[#15d518] to-[#0f3a12] bg-clip-text text-[clamp(1rem,2.2vw,1.4rem)] font-semibold text-transparent">
+          <span className="text-[clamp(1rem,2.2vw,1.4rem)] font-semibold text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
             Join the Movement
           </span>
           <svg
