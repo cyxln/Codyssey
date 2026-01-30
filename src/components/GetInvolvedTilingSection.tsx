@@ -55,9 +55,97 @@ export default function GetInvolvedTilingSection() {
               </article>
             ))}
           </div>
-          <p className="font-playfair mt-16 text-center text-[40px] leading-tight text-[#1e1e1e] sm:text-[48px] lg:text-[64px]">
-            Thank you for supporting our cause!
+        </div>
+      </div>
+
+      <div className="mx-auto flex w-full max-w-[1322px] flex-col items-center px-6 pb-24">
+        <p className="font-playfair text-center text-[40px] leading-tight text-[#1e1e1e] sm:text-[48px] lg:text-[64px]">
+          Thank you for supporting our cause!
+        </p>
+        <div className="mt-16 flex w-full flex-col items-center text-center">
+          <h3 className="font-playfair text-[clamp(2.2rem,4vw,3rem)] leading-tight text-[#0f3a12] text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+            Have questions? Reach out to our team.
+          </h3>
+          <p className="mt-4 max-w-[977px] text-[clamp(1rem,2.2vw,1.5rem)] font-normal text-[#1e1e1e]">
+            Whether you're curious about a specific program or want to discuss a partnership,
+            we're here to help.
           </p>
+
+          <form
+            className="mt-10 w-full max-w-[1044px] rounded-[26px] border border-black bg-transparent px-[32px] pb-10 pt-8 text-left"
+            method="get"
+          >
+            <div className="grid gap-y-8">
+              <div className="grid gap-y-8 sm:grid-cols-[431px_476px] sm:gap-x-[49px] sm:gap-y-0">
+                <div className="flex flex-col gap-3">
+                  <label
+                    htmlFor="full-name"
+                    className="text-[20px] font-semibold text-[#5c1a00] sm:text-[24px]"
+                  >
+                    Full Name:
+                  </label>
+                  <input
+                    id="full-name"
+                    name="full-name"
+                    type="text"
+                    className="h-[54px] w-full rounded-[10px] bg-[#d9d9d9] px-4 text-[18px] text-[#1e1e1e] outline-none"
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <label
+                    htmlFor="email-address"
+                    className="text-[20px] font-semibold text-[#5c1a00] sm:text-[24px]"
+                  >
+                    Email Address:
+                  </label>
+                  <input
+                    id="email-address"
+                    name="email-address"
+                    type="email"
+                    className="h-[54px] w-full rounded-[10px] bg-[#d9d9d9] px-4 text-[18px] text-[#1e1e1e] outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:ml-[12px] sm:max-w-[944px]">
+                <label
+                  htmlFor="interest"
+                  className="text-[20px] font-semibold text-[#5c1a00] sm:text-[24px]"
+                >
+                  Interest:
+                </label>
+                <input
+                  id="interest"
+                  name="interest"
+                  type="text"
+                  className="h-[54px] w-full rounded-[10px] bg-[#d9d9d9] px-4 text-[18px] text-[#1e1e1e] outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-3 sm:max-w-[956px]">
+                <label
+                  htmlFor="message"
+                  className="text-[20px] font-semibold text-[#5c1a00] sm:text-[24px]"
+                >
+                  Your Message:
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  className="h-[164px] w-full resize-none rounded-[10px] bg-[#d9d9d9] px-4 py-3 text-[18px] text-[#1e1e1e] outline-none"
+                />
+              </div>
+            </div>
+            <div className="mt-10 flex w-full justify-center">
+              <button
+                type="submit"
+                className="h-[83px] w-[308px] rounded-[41.5px] bg-[#0f3a12] text-[24px] font-extrabold text-white"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </section>
