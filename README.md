@@ -157,13 +157,5 @@ EXA_API_KEY=your_exa_key
 - UK in the Philippines. (n.d.). Home [Facebook page]. Retrieved October 30, 2024, from https://www.facebook.com/ukinthephilippines  
 - Vincentian Missionaries Social Development Foundation Incorporated (VMSDFI). (2001). Meet the Philippines Homeless People's Federation. PHILIPPINES HOMELESS PEOPLE'S FEDERATION, 13(2). http://www.achr.net/upload/downloads/file_13112019091044.pdf  
 
----
-
-## 📄 License
-
-[Add your license here]
-
----
 
 This project aims to democratize access to community-led development knowledge and contribute to building resilient societies from the ground up.
-````
