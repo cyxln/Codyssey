@@ -2,59 +2,111 @@
 
 import { useEffect, useRef, useState } from "react";
 import NavBar from "@/components/elements/NavBar";
+import ResultsPresentation, {
+  type MapsGroundingMetadata,
+  type RiskAssessmentResult,
+  type SearchGroundingMetadata,
+} from "@/components/RiskAssessment/ResultsPresentation";
 
 type ToastState = {
   message: string;
   tone: "error" | "info";
 };
 
-type RiskAssessmentResult = {
-  score: number;
-  score_description:
-    | "MINIMAL_RISK"
-    | "LOW_RISK"
-    | "MODERATE_RISK"
-    | "HIGH_RISK"
-    | "SEVERE_RISK";
-  location_overview: string;
-  vulnerabilities: string;
-  precautionary_steps: string[];
-  is_area_allowed_to_visit: "YES" | "REROUTE" | "AVOID";
-  sources?: string[];
+type PredictGrounding = {
+  search?: SearchGroundingMetadata;
+  maps?: MapsGroundingMetadata;
 };
+
+const loadingSteps = [
+  {
+    title: "Checking the location request",
+    detail: "Running the guardrail before any map or search calls.",
+  },
+  {
+    title: "Searching Google Maps context",
+    detail: "Looking for local places, roads, waterways, and nearby features.",
+  },
+  {
+    title: "Reviewing map signals",
+    detail: "Checking whether the map insight matches the requested area.",
+  },
+  {
+    title: "Searching current reports",
+    detail: "Grounding the assessment with recent weather, hazards, and news.",
+  },
+  {
+    title: "Preparing final analysis",
+    detail: "Structuring the risk score, guidance, precautions, and sources.",
+  },
+];
+
+function LoadingProgress({ activeStep }: { activeStep: number }) {
+  return (
+    <div className="w-full max-w-xl rounded-[22px] border border-black/15 bg-white p-5 text-left shadow-[0_16px_35px_rgba(0,0,0,0.1)]">
+      <div className="flex items-center gap-3">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#3b76ff] border-t-transparent" />
+        <div>
+          <p className="text-sm font-semibold text-[#1c1c1c]">
+            {loadingSteps[activeStep]?.title ?? "Preparing assessment"}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-[#5f5f5f]">
+            {loadingSteps[activeStep]?.detail ??
+              "Organizing grounded risk information."}
+          </p>
+        </div>
+      </div>
+      <ol className="mt-5 space-y-3">
+        {loadingSteps.map((step, index) => {
+          const isDone = index < activeStep;
+          const isActive = index === activeStep;
+
+          return (
+            <li className="flex items-start gap-3" key={step.title}>
+              <span
+                className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[0.65rem] font-semibold ${
+                  isDone
+                    ? "border-[#16833a] bg-[#16833a] text-white"
+                    : isActive
+                    ? "border-[#3b76ff] bg-[#e2eefb] text-[#1f4fb8]"
+                    : "border-black/20 bg-white text-[#777]"
+                }`}
+              >
+                {isDone ? "✓" : index + 1}
+              </span>
+              <div>
+                <p
+                  className={`text-sm font-medium ${
+                    isActive ? "text-[#1c1c1c]" : "text-[#5f5f5f]"
+                  }`}
+                >
+                  {step.title}
+                </p>
+                {isActive ? (
+                  <p className="mt-0.5 text-xs leading-relaxed text-[#6b6b6b]">
+                    {step.detail}
+                  </p>
+                ) : null}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
 
 export default function RiskAssessmentPage() {
   const [toast, setToast] = useState<ToastState | null>(null);
   const toastTimeoutRef = useRef<number | null>(null);
+  const loadingIntervalRef = useRef<number | null>(null);
   const [locationInput, setLocationInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
   const [riskResult, setRiskResult] = useState<RiskAssessmentResult | null>(
     null
   );
-  const cardBaseClass =
-    "rounded-[26px] border border-black/25 bg-white p-5 shadow-[0_16px_35px_rgba(0,0,0,0.08)]";
-  const cardTitleClass =
-    "text-xs font-semibold uppercase tracking-[0.12em] text-[#5f5f5f]";
-
-  const getAdaptiveTextClass = (
-    content: string,
-    options?: { short?: number; long?: number }
-  ) => {
-    const shortLimit = options?.short ?? 140;
-    const longLimit = options?.long ?? 360;
-    const length = content.trim().length;
-
-    if (!length) {
-      return "text-sm leading-relaxed";
-    }
-    if (length <= shortLimit) {
-      return "text-base leading-relaxed";
-    }
-    if (length <= longLimit) {
-      return "text-sm leading-relaxed";
-    }
-    return "text-xs leading-relaxed";
-  };
+  const [grounding, setGrounding] = useState<PredictGrounding | null>(null);
 
   const showToast = (message: string, tone: ToastState["tone"] = "error") => {
     setToast({ message, tone });
@@ -65,6 +117,30 @@ export default function RiskAssessmentPage() {
       setToast(null);
       toastTimeoutRef.current = null;
     }, 5000);
+  };
+
+  const clearLoadingProgressTimer = () => {
+    if (loadingIntervalRef.current) {
+      window.clearInterval(loadingIntervalRef.current);
+      loadingIntervalRef.current = null;
+    }
+  };
+
+  const beginLoadingProgress = (startStep = 0) => {
+    clearLoadingProgressTimer();
+    setLoadingStep(startStep);
+    setIsLoading(true);
+
+    loadingIntervalRef.current = window.setInterval(() => {
+      setLoadingStep((current) =>
+        current < loadingSteps.length - 1 ? current + 1 : current
+      );
+    }, 2200);
+  };
+
+  const finishLoadingProgress = () => {
+    clearLoadingProgressTimer();
+    setIsLoading(false);
   };
 
   const parseRiskResult = (
@@ -93,8 +169,9 @@ export default function RiskAssessmentPage() {
       return;
     }
 
-    setIsLoading(true);
+    beginLoadingProgress(0);
     setRiskResult(null);
+    setGrounding(null);
 
     try {
       const response = await fetch("/api/predict", {
@@ -126,12 +203,13 @@ export default function RiskAssessmentPage() {
         return;
       }
       setRiskResult(parsed);
+      setGrounding(data?.grounding ?? null);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Network error occurred.";
       showToast(message);
     } finally {
-      setIsLoading(false);
+      finishLoadingProgress();
     }
   };
 
@@ -141,13 +219,15 @@ export default function RiskAssessmentPage() {
       return;
     }
 
-    setIsLoading(true);
+    beginLoadingProgress(0);
     setRiskResult(null);
+    setGrounding(null);
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
         console.log("Current location:", { latitude, longitude });
+        beginLoadingProgress(1);
 
         try {
           const response = await fetch("/api/predict", {
@@ -181,22 +261,23 @@ export default function RiskAssessmentPage() {
             return;
           }
           setRiskResult(parsed);
+          setGrounding(data?.grounding ?? null);
         } catch (error) {
           const message =
             error instanceof Error ? error.message : "Network error occurred.";
           showToast(message);
         } finally {
-          setIsLoading(false);
+          finishLoadingProgress();
         }
       },
       (error) => {
         if (error.code === error.PERMISSION_DENIED) {
           showToast("Location permission denied.");
-          setIsLoading(false);
+          finishLoadingProgress();
           return;
         }
         showToast("Unable to access location.");
-        setIsLoading(false);
+        finishLoadingProgress();
       },
       { enableHighAccuracy: true, timeout: 10000 }
     );
@@ -207,6 +288,7 @@ export default function RiskAssessmentPage() {
       if (toastTimeoutRef.current) {
         window.clearTimeout(toastTimeoutRef.current);
       }
+      clearLoadingProgressTimer();
     };
   }, []);
 
@@ -228,12 +310,7 @@ export default function RiskAssessmentPage() {
             Type your location to see if its safe and take action
           </h1>
           {isLoading ? (
-            <div className="flex flex-col items-center gap-4">
-              <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#3b76ff] border-t-transparent" />
-              <div className="rounded-2xl bg-white px-6 py-3 text-sm font-medium text-[#1c1c1c] shadow-[0_16px_35px_rgba(0,0,0,0.12)]">
-                Please wait
-              </div>
-            </div>
+            <LoadingProgress activeStep={loadingStep} />
           ) : (
             <>
               <input
@@ -259,100 +336,28 @@ export default function RiskAssessmentPage() {
             </>
           )}
           {riskResult ? (
-            <div className="risk-result mt-6 w-full text-left">
-              <div className="grid gap-4 md:grid-cols-[minmax(190px,240px)_minmax(0,1fr)_minmax(0,1fr)]">
-                <div className="flex flex-col gap-4">
-                  <div className={`${cardBaseClass} bg-[#e2eefb]`}>
-                    <p className={cardTitleClass}>Risk score</p>
-                    <p className="mt-3 text-[clamp(2.2rem,3.4vw,3.2rem)] font-semibold text-[#0f1c2b]">
-                      {riskResult.score}
-                    </p>
-                  </div>
-                  <div className={`${cardBaseClass} bg-[#f7cdb3]`}>
-                    <p className={cardTitleClass}>Risk level</p>
-                    <p className="mt-3 text-[clamp(1.4rem,2.4vw,2rem)] font-semibold text-[#3c2418]">
-                      {riskResult.score_description.replace("_", " ")}
-                    </p>
-                  </div>
-                  <div className={`${cardBaseClass} bg-[#c9f4cd]`}>
-                    <p className={cardTitleClass}>Route guidance</p>
-                    <p className="mt-3 text-[clamp(1.1rem,2vw,1.45rem)] font-semibold text-[#1f3b27]">
-                      {riskResult.is_area_allowed_to_visit.replace("_", " ")}
-                    </p>
-                  </div>
-                </div>
-                <div className={cardBaseClass}>
-                  <p className={cardTitleClass}>Location overview</p>
-                  <p
-                    className={`mt-3 text-[#1f1f1f] ${getAdaptiveTextClass(
-                      riskResult.location_overview,
-                      { short: 120, long: 360 }
-                    )}`}
-                  >
-                    {riskResult.location_overview}
-                  </p>
-                </div>
-                <div className={cardBaseClass}>
-                  <p className={cardTitleClass}>Vulnerabilities</p>
-                  <p
-                    className={`mt-3 text-[#1f1f1f] ${getAdaptiveTextClass(
-                      riskResult.vulnerabilities,
-                      { short: 140, long: 420 }
-                    )}`}
-                  >
-                    {riskResult.vulnerabilities}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4 grid gap-4">
-                <div className={cardBaseClass}>
-                  <p className={cardTitleClass}>Precautionary / Next steps</p>
-                  <ul
-                    className={`mt-3 list-disc space-y-2 pl-5 text-[#1f1f1f] ${getAdaptiveTextClass(
-                      riskResult.precautionary_steps.join(" "),
-                      { short: 200, long: 520 }
-                    )}`}
-                  >
-                    {riskResult.precautionary_steps.map((step, index) => (
-                      <li key={`${step}-${index}`}>{step}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={cardBaseClass}>
-                  <p className={cardTitleClass}>Sources</p>
-                  <ul
-                    className={`mt-3 list-disc space-y-2 pl-5 text-[#1f1f1f] ${getAdaptiveTextClass(
-                      (riskResult.sources ?? []).join(" "),
-                      { short: 160, long: 460 }
-                    )}`}
-                  >
-                    {(riskResult.sources ?? []).length > 0 ? (
-                      riskResult.sources?.map((source, index) => (
-                        <li key={`${source}-${index}`}>{source}</li>
-                      ))
-                    ) : (
-                      <li>No sources provided.</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <ResultsPresentation
+              mapsGrounding={grounding?.maps}
+              result={riskResult}
+              searchGrounding={grounding?.search}
+            />
           ) : null}
         </section>
         <footer className="mt-auto w-full max-w-3xl text-center text-[0.7rem] text-[#6b6b6b]">
           <p>
-            It uses Exa Search API and GPT-5 Mini to synthesize information,
-            please double check and should be used for reference only.
+            It uses Gemini API with Google Search and Google Maps grounding to
+            synthesize information, please double check and use it for reference
+            only.
           </p>
           <p className="mt-2">
             &quot;Use my current location&quot; uses your network&#39;s
-            approximate location and OpenStreetMaps API, this may affect how
-            GPT shapes it&#39;s responses.
+            approximate location and OpenStreetMaps API, this may affect how the
+            assessment is grounded.
           </p>
         </footer>
       </div>
       <style jsx>{`
-        .risk-result {
+        :global(.risk-result) {
           animation: riskFadeIn 420ms ease-in;
         }
 
