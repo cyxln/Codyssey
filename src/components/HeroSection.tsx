@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import NavBar from "./elements/NavBar";
 import JoinUsBtn from "./elements/JoinUsBtn";
 
@@ -5,26 +7,36 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0d120c] text-white">
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="/figma_assets/hero-sunrise.png"
           alt="Sunrise over rolling hills"
-          className="h-full w-full object-cover object-center scale-[1.05]"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center scale-[1.05]"
         />
       </div>
 
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="/figma_assets/hero-village.png"
           alt=""
-          className="h-full w-full object-cover object-center blur-[2px]"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center blur-[2px]"
         />
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-[2] hero-contrast" />
 
-      <img
+      <Image
         src="/figma_assets/hero-plant.png"
         alt=""
+        width={1920}
+        height={900}
+        priority
+        sizes="100vw"
         className="pointer-events-none absolute bottom-[-12%] left-1/2 z-[5] h-auto w-screen -translate-x-1/2 sm:bottom-[-10%] lg:bottom-[-8%]"
       />
 

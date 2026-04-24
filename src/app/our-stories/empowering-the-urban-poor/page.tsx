@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import NavBar from "@/components/elements/NavBar";
 import FooterSection from "@/components/FooterSection";
 
@@ -23,10 +25,13 @@ export default function EmpoweringTheUrbanPoorPage() {
   return (
     <main className="min-h-screen bg-[#fdf6e9] text-[#1e1e1e]">
       <section className="relative min-h-[520px] w-full overflow-hidden">
-        <img
+        <Image
           src={heroImage}
           alt="Community street in Iloilo City"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(15,58,18,0.7)]" />
 
@@ -64,12 +69,14 @@ export default function EmpoweringTheUrbanPoorPage() {
           {galleryImages.map((image) => (
             <div
               key={image.src}
-              className="aspect-[4/3] w-full overflow-hidden transition-opacity duration-300 group-hover:opacity-40 group-focus-within:opacity-40 hover:opacity-100 focus-within:opacity-100"
+              className="relative aspect-[4/3] w-full overflow-hidden transition-opacity duration-300 group-hover:opacity-40 group-focus-within:opacity-40 hover:opacity-100 focus-within:opacity-100"
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
-                className="h-full w-full object-cover focus:outline-none"
+                fill
+                sizes="(min-width: 768px) 33vw, 90vw"
+                className="object-cover focus:outline-none"
                 tabIndex={0}
               />
             </div>

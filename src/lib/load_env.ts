@@ -1,5 +1,5 @@
 import("server-only").catch(() => {
-  // Ignore when running outside Next.js (e.g., Netlify Functions).
+  // Ignore when this helper is loaded by non-Next scripts.
 });
 import fs from "node:fs";
 import path from "node:path";

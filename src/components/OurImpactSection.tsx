@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const impactItems = [
   {
     title: "Security Tenure",
@@ -37,8 +39,14 @@ export default function OurImpactSection() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
         {impactItems.map((item) => (
           <div key={item.title} className="flex w-full flex-col items-center gap-6">
-            <div className="w-full max-w-[360px] overflow-hidden rounded-[32px] bg-white shadow-[5px_6px_6.6px_rgba(0,0,0,0.25)]">
-              <img src={item.image} alt={item.alt} className="h-full w-full object-cover" />
+            <div className="relative aspect-[4/3] w-full max-w-[360px] overflow-hidden rounded-[32px] bg-white shadow-[5px_6px_6.6px_rgba(0,0,0,0.25)]">
+              <Image
+                src={item.image}
+                alt={item.alt}
+                fill
+                sizes="(min-width: 1024px) 360px, 90vw"
+                className="object-cover"
+              />
             </div>
             <p className="text-center text-[clamp(1.1rem,2.5vw,2.5rem)] font-normal text-[#1e1e1e]">
               {item.title}

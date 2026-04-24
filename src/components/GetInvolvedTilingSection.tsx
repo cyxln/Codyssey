@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import NavBar from "./elements/NavBar";
 
 const tiles = [
@@ -40,9 +42,12 @@ export default function GetInvolvedTilingSection() {
                 className="get-involved-tile flex w-full max-w-[410px] flex-col items-center rounded-[43px] bg-[#ffead8] px-[21px] pb-10 pt-[22px] text-center shadow-[13px_21px_42.3px_rgba(0,0,0,0.25)] lg:h-[528px]"
               >
                 <div className="relative h-[240px] w-full overflow-hidden rounded-[43px] sm:h-[280px] lg:h-[308px]">
-                  <img
+                  <Image
                     src={tile.image}
                     alt={`${tile.title} photo`}
+                    width={1200}
+                    height={900}
+                    sizes="(min-width: 1024px) 410px, 90vw"
                     className={tile.imageClassName}
                   />
                 </div>

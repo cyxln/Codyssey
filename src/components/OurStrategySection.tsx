@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const strategies = [
   {
     title: "Community Savings",
@@ -48,7 +50,13 @@ export default function OurStrategySection() {
           >
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#1e1e1e]">
-                <img src={item.icon} alt={item.alt} className="h-8 w-8" />
+                <Image
+                  src={item.icon}
+                  alt={item.alt}
+                  width={32}
+                  height={32}
+                  className="h-8 w-8"
+                />
               </div>
               <h3 className="text-[clamp(1.25rem,2.4vw,2rem)] font-extrabold text-[#1e1e1e]">
                 {item.title}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 import NavBar from "./elements/NavBar";
@@ -132,10 +133,12 @@ export default function AboutUsPillarsSection() {
               key={pillar.image}
               className="relative flex min-h-[240px] flex-1 items-end overflow-hidden"
             >
-              <img
+              <Image
                 src={pillar.image}
                 alt={pillar.alt}
-                className={`absolute inset-0 h-full w-full object-cover ${pillar.imageClassName ?? ""}`}
+                fill
+                sizes="(min-width: 1024px) 25vw, 100vw"
+                className={`object-cover ${pillar.imageClassName ?? ""}`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2d5a27] via-[#2d5a27]/70 to-transparent" />
               <div className="relative z-10 w-full px-6 pb-8 pt-16 text-white">
@@ -171,10 +174,12 @@ export default function AboutUsPillarsSection() {
               key={card.title}
               className="relative min-h-[280px] overflow-hidden rounded-[48px] shadow-[6px_9px_9.4px_rgba(0,0,0,0.25)] sm:min-h-[340px] lg:min-h-[397px]"
             >
-              <img
+              <Image
                 src={card.image}
                 alt={card.alt}
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(min-width: 1024px) 72rem, 100vw"
+                className="object-cover"
               />
               <div className={`absolute inset-0 ${card.gradientClassName}`} />
               <div
@@ -201,9 +206,11 @@ export default function AboutUsPillarsSection() {
           <div className="mt-12 grid w-full grid-cols-1 gap-y-14 gap-x-10 text-center sm:grid-cols-2 md:grid-cols-6">
             <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-span-2">
               <div className="flex h-[96px] w-[96px] items-center justify-center rounded-full">
-                <img
+                <Image
                   src="/figma_assets/about_us/pillars/core_values/heart.png"
                   alt="Heart icon"
+                  width={80}
+                  height={80}
                   className="h-20 w-20 object-contain"
                 />
               </div>
@@ -215,9 +222,11 @@ export default function AboutUsPillarsSection() {
 
             <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-span-2">
               <div className="flex h-[96px] w-[96px] items-center justify-center rounded-full">
-                <img
+                <Image
                   src="/figma_assets/about_us/pillars/core_values/people-ring.png"
                   alt="People icon"
+                  width={80}
+                  height={80}
                   className="h-20 w-20 object-contain"
                 />
               </div>
@@ -228,9 +237,11 @@ export default function AboutUsPillarsSection() {
 
             <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-span-2">
               <div className="flex h-[96px] w-[96px] items-center justify-center rounded-full">
-                <img
+                <Image
                   src="/figma_assets/about_us/pillars/core_values/bamboo.png"
                   alt="Bamboo icon"
+                  width={80}
+                  height={80}
                   className="h-20 w-20 object-contain"
                 />
               </div>
@@ -241,9 +252,11 @@ export default function AboutUsPillarsSection() {
 
             <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-start-2 md:col-span-2">
               <div className="flex h-[104px] w-[104px] items-center justify-center">
-                <img
+                <Image
                   src="/figma_assets/about_us/pillars/core_values/handshake.png"
                   alt="Handshake icon"
+                  width={88}
+                  height={88}
                   className="h-[88px] w-[88px] object-contain"
                 />
               </div>
@@ -254,9 +267,11 @@ export default function AboutUsPillarsSection() {
 
             <div className="mx-auto flex max-w-[260px] flex-col items-center gap-4 md:col-start-4 md:col-span-2">
               <div className="flex h-[104px] w-[104px] items-center justify-center">
-                <img
+                <Image
                   src="/figma_assets/about_us/pillars/core_values/shield.png"
                   alt="Shield icon"
+                  width={88}
+                  height={88}
                   className="h-[88px] w-[88px] object-contain"
                 />
               </div>
@@ -288,9 +303,11 @@ export default function AboutUsPillarsSection() {
                   className="relative grid grid-cols-[auto_1fr] items-start gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center"
                 >
                   <div className="relative z-10 flex items-start justify-center md:col-start-2 md:row-start-1">
-                    <img
+                    <Image
                       src="/figma_assets/about_us/journey/timeline-dot.svg"
                       alt=""
+                      width={32}
+                      height={32}
                       className="h-7 w-7 md:h-8 md:w-8"
                     />
                   </div>

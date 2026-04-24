@@ -3,10 +3,12 @@ import {
   OPENAI_STRUCTURED_RESPONSE_SCHEMA,
   WEB_SEARCH_QUERYGEN_SCHEMA,
   PROMPT_REFUSAL_SCHEMA,
-} from "../../src/lib/system_prompt";
-import { generateResponse } from "../../src/lib/openai";
-import { getLocationNameFromCoordinates } from "../../src/lib/openstreetmap_determine_coordinates";
-import { exaSearch } from "../../src/lib/exa_search";
+} from "@/lib/system_prompt";
+import { generateResponse } from "@/lib/openai";
+import { getLocationNameFromCoordinates } from "@/lib/openstreetmap_determine_coordinates";
+import { exaSearch } from "@/lib/exa_search";
+
+export const runtime = "nodejs";
 
 type RefusalResult = {
   throw_error: boolean;
@@ -20,29 +22,15 @@ type PredictBody = {
   };
 };
 
-const jsonResponse = (statusCode: number, payload: unknown) => ({
-  statusCode,
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload),
-});
-
-export const handler = async (event: {
-  body?: string | null;
-  isBase64Encoded?: boolean;
-}) => {
+export async function POST(request: Request) {
   try {
-    const rawBody = event.body
-      ? event.isBase64Encoded
-        ? Buffer.from(event.body, "base64").toString("utf-8")
-        : event.body
-      : "";
-
     let parsedBody: PredictBody = {};
+    const rawBody = await request.text();
     if (rawBody) {
       try {
         parsedBody = JSON.parse(rawBody) as PredictBody;
       } catch {
-        return jsonResponse(400, { error: "Invalid JSON body." });
+        return Response.json({ error: "Invalid JSON body." }, { status: 400 });
       }
     }
 
@@ -66,7 +54,7 @@ export const handler = async (event: {
     }
 
     if (!resolvedLocation) {
-      return jsonResponse(400, { error: "Missing location input." });
+      return Response.json({ error: "Missing location input." }, { status: 400 });
     }
 
     if (userLocation) {
@@ -87,7 +75,10 @@ export const handler = async (event: {
       }
 
       if (throwError) {
-        return jsonResponse(400, { error: "Invalid or off-topic location query." });
+        return Response.json(
+          { error: "Invalid or off-topic location query." },
+          { status: 400 }
+        );
       }
     }
 
@@ -179,12 +170,12 @@ export const handler = async (event: {
       OPENAI_STRUCTURED_RESPONSE_SCHEMA
     );
 
-    return jsonResponse(200, {
+    return Response.json({
       constructedPrompt: constructedPromptString,
       synthesizedResponse,
     });
   } catch (error) {
     console.error("Failed to process predict request:", error);
-    return jsonResponse(500, { error: "Something went wrong." });
+    return Response.json({ error: "Something went wrong." }, { status: 500 });
   }
-};
+}

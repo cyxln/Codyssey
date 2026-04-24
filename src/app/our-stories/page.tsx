@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import NavBar from "@/components/elements/NavBar";
 import FooterSection from "@/components/FooterSection";
 
@@ -65,11 +67,13 @@ export default function OurStoriesPage() {
                   key={story.title}
                   className="flex flex-col gap-6 rounded-[39px] bg-[rgba(141,213,90,0.44)] px-6 py-6 text-[#1f130a] shadow-[0_12px_30px_rgba(0,0,0,0.08)] md:flex-row md:items-center"
                 >
-                  <div className="h-[190px] w-full overflow-hidden rounded-[22px] md:h-[200px] md:w-[260px] lg:h-[243px] lg:w-[286px]">
-                    <img
+                  <div className="relative h-[190px] w-full overflow-hidden rounded-[22px] md:h-[200px] md:w-[260px] lg:h-[243px] lg:w-[286px]">
+                    <Image
                       src={story.image}
                       alt={story.imageAlt}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 286px, (min-width: 768px) 260px, 90vw"
+                      className="object-cover"
                     />
                   </div>
                   <div className="flex flex-1 flex-col gap-3">

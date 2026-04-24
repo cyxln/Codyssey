@@ -1,21 +1,13 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 type JoinUsBtnProps = {
   buttonText: string;
 };
 
 export default function JoinUsBtn({ buttonText }: JoinUsBtnProps) {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/get-involved');
-  };
-
   return (
-    <button 
-      onClick={handleClick}
+    <Link
+      href="/get-involved"
       className="glass-pill glass-pill--cta mt-4 flex items-center gap-3 px-10 py-3 cursor-pointer"
     >
       <span className="text-[clamp(1rem,2.2vw,1.4rem)] font-semibold text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
@@ -37,6 +29,6 @@ export default function JoinUsBtn({ buttonText }: JoinUsBtnProps) {
           strokeLinejoin="round"
         />
       </svg>
-    </button>
+    </Link>
   );
 }

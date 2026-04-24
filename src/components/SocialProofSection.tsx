@@ -1,10 +1,14 @@
+import Image from "next/image";
+
 export default function SocialProofSection() {
   return (
     <section className="relative flex items-center justify-center overflow-hidden bg-[#1a120b] px-6 py-16 text-white">
-      <img
+      <Image
         src="/figma_assets/our_impact/social-proof-soil.png"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        fill
+        sizes="100vw"
+        className="object-cover"
       />
       <div className="absolute inset-0 bg-black/35" />
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center gap-6 text-center">

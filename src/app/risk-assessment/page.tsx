@@ -97,7 +97,7 @@ export default function RiskAssessmentPage() {
     setRiskResult(null);
 
     try {
-      const response = await fetch("/.netlify/functions/predict", {
+      const response = await fetch("/api/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userLocation: trimmed }),
@@ -150,7 +150,7 @@ export default function RiskAssessmentPage() {
         console.log("Current location:", { latitude, longitude });
 
         try {
-          const response = await fetch("/.netlify/functions/predict", {
+          const response = await fetch("/api/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

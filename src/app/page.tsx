@@ -7,29 +7,16 @@ import JoinNowSection from "../components/JoinNowSection";
 import StatsSection from "../components/StatsSection";
 import SocialProofSection from "../components/SocialProofSection";
 import FooterSection from "../components/FooterSection";
-import ScrollReveal from "../components/elements/ScrollReveal";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <ScrollReveal>
-        <HeroSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <QuoteSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <AboutUsSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <OurStrategySection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <OurImpactSection />
-      </ScrollReveal>
-      <ScrollReveal>
-        <JoinNowSection />
-      </ScrollReveal>
+      <HeroSection />
+      <QuoteSection />
+      <AboutUsSection />
+      <OurStrategySection />
+      <OurImpactSection />
+      <JoinNowSection />
       <StatsSection />
       <SocialProofSection />
       <FooterSection />

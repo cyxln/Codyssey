@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const exploreLinks = [
   "About Us",
   "Mission & Vision",
@@ -14,9 +16,11 @@ export default function FooterSection() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex max-w-md items-start gap-6">
-            <img
+            <Image
               src="/figma_assets/footer/hpfpi-logo.png"
               alt="Homeless People's Federation Philippines logo"
+              width={80}
+              height={80}
               className="h-20 w-20 object-contain"
             />
             <div className="text-sm leading-relaxed text-white/85">

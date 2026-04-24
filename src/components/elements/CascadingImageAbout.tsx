@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type CascadingImageAboutProps = {
   topSrc: string;
   topAlt: string;
@@ -14,13 +16,21 @@ export default function CascadingImageAbout({
   return (
     <div className="about-stack w-full pb-[110%]">
       <div className="about-card about-card--top">
-        <img src={topSrc} alt={topAlt} className="absolute inset-0 h-full w-full object-cover" />
+        <Image
+          src={topSrc}
+          alt={topAlt}
+          fill
+          sizes="(min-width: 1024px) 32rem, 90vw"
+          className="object-cover"
+        />
       </div>
       <div className="about-card about-card--bottom">
-        <img
+        <Image
           src={bottomSrc}
           alt={bottomAlt}
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          sizes="(min-width: 1024px) 32rem, 90vw"
+          className="object-cover"
         />
       </div>
     </div>
